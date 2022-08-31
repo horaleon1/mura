@@ -1,0 +1,36 @@
+.collectionLayoutList,
+.searchResultsLayout{
+    .row{
+        position:relative;
+        [class*="col-"] {
+            position: unset;
+            .stretched-link{
+                &::after{
+                    transition:all ease-in-out .15s;
+                    margin-left:15px;
+                    margin-bottom:15px;
+                }
+                &:hover{
+                    &::after{
+                        background-color:rgba(255, 255, 255, .25);
+                        border-radius:0;
+                        border:1px solid $primary;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//when content is not constrained but collection layout has a .row
+.mura-object{
+    &[data-layout="List"],
+    &[data-object="SearchResults"]{
+        .mura-object-content{
+            &:not(.container){
+                padding-left:15px;
+                padding-right:15px;
+            }
+        }
+    }
+}

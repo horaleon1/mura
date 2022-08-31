@@ -1,0 +1,104 @@
+.accordion{
+    .card{
+        .collapse{
+            .card-body{
+                position:relative;
+            }
+        }
+    }
+    .card-header{
+        position:relative;
+        background-color:$white;
+        cursor: pointer;
+        &::before{
+            font-family: 'fontawesome';
+            font-weight: 900;
+            position:absolute;
+            top:50%;
+            transform: translateY(-50%);
+            right:30px;
+            font-size:110%;
+        }
+        &.open:before {   
+            content: "\f077";
+        }
+        &.not-open:before {
+            content: "\f078";
+        }  
+        &:hover{
+            background: rgba(0,0,0,.05);
+            text-decoration: none;
+            transition: all .3s ease;
+            -webkit-transition: all .3s ease;
+        }
+    }
+    &.left-indicator{
+        .card-header{            
+            padding-left: calc(3rem + 30px);
+            &:before {   
+                right:auto;
+                left:calc((3rem + 30px) / 2);
+            }            
+        }
+        &.tight-spacing{
+            .card-header{
+                
+                    padding-left: calc(#{$tight-padding} * 3);
+                    &:before {
+                        left:calc((#{$tight-padding} * 3) / 2 - 7.5px);
+                    }
+                
+            }
+        }
+        &.normal-spacing{
+            .card-header{
+                padding-left: calc(#{$normal-padding} * 2);
+                &:before {
+                    left:calc(#{$normal-padding} - 7.5px);
+                }                
+            }
+        }
+        &.loose-spacing{
+            .card-header{
+                padding-left: calc(#{$loose-padding} * 2);
+                &:before {
+                    left:calc(#{$loose-padding} - 7.5px);
+                }
+            }
+        }
+    }
+    //left indicator end
+    &.tight-spacing{
+        .card-header{
+            
+                padding:$tight-padding;
+        
+        }
+    }
+    
+    &.normal-spacing{
+        .card-header{
+            
+                padding:$normal-padding;
+        
+        }
+    }
+    &.loose-spacing{
+        .card-header{
+        
+                padding:$loose-padding;
+        
+        }
+    }
+
+    &.plus-min{
+        .card-header{
+            &.open:before {   
+                content: "\f068";
+            }
+            &.not-open:before {
+                content: "\f067";
+            }
+        }
+    }
+}

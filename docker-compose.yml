@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  #Mura Server
+  mura:
+    image: murasoftware/mura-dxp:latest
+    environment:
+        LUCEE_JAVA_OPTS: "-Xms1024m -Xmx2048m"
+        MURA_ADMIN_USERNAME: admin
+        MURA_ADMIN_PASSWORD: admin
+        MURA_ADMINEMAIL: example@localhost.com
+        MURA_APPRELOADKEY: appreload
+        MURA_DATASOURCE: muradb
+        MURA_DATABASE: muradb
+        MURA_DBTYPE: mysql
+        MURA_DBUSERNAME: root
+        MURA_DBPASSWORD: password
+        MURA_DBCONNECTIONSTRING: "jdbc:mysql://mura_mysql:3306/muradb?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=true"
+        MURA_DBCLASS: com.mysql.cj.jdbc.Driver
+        MURA_SITEIDINURLS: "false"
+        MURA_INDEXFILEINURLS: "false"
+        MURA_EXTERNALCONFIG: "http://host.docker.internal:3000/mura.config.json"
+        MURA_DEFAULTTHEMEURL: "https://github.com/murasoftware/mura-minimal/archive/master.zip"
+        MURA_HTMLEDITORTYPE: markdown
+        MURA_AUTODISCOVERPLUGINS: "true"
+        MURA_VARIATIONS: "true"
+        MURA_MAILSERVERIP: "mailcatcher"
+        MURA_MAILSERVERSMTPPORT: ${SMTP_PORT:-1025}
+        MURA_USEDEFAULTSMTPSERVER: "false"
+        MURA_MODULETEMPLATES: "true"
+        MURA_SETUPDOMAIN: "localhost"
+        MURA_RESORUCEDOMAIN: "localhost"
+        MURA_REMOTEPORT: "3000"
+        MURA_EDITROUTE: ""
+    volumes:
+        -   sites_data:/var/www/sites
+        -   themes_data:/var/www/themes
+    ports:
+        - "8888:8888"
+
+  #Mail Service
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "${MAILCATCHER_PORT:-1080}:1080"
+      - "${SMTP_PORT:-1025}:1025"
+  #MySQL
+  mura_mysql:
+    image: mysql:latest
+    environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: muradb
+    volumes:
+        - mysql_data:/var/lib/mysql
+    ports:
+        - "55556:3306"
+
+volumes:
+    mysql_data:
+    sites_data:
+    themes_data:

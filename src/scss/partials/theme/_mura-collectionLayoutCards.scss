@@ -1,0 +1,39 @@
+.collectionLayoutCards{
+    .card{
+        border:0;
+        .card-footer{
+            background-color:#fff;
+            border-top:0;
+            svg[data-icon]{
+                width:10px;
+            }
+        }   
+        .stretched-link{
+            &::after{
+                transition:all ease-in-out .15s;
+            }
+            &:hover{
+                &::after{
+                    background-color:rgba(255, 255, 255, .25);
+                    border-radius:.25rem;
+                    border:1px solid $primary;
+                }
+            }
+        }
+        hr{
+            margin-top:1rem;
+            margin-bottom:1rem;
+        }
+    }
+}
+//when content is not constrained but collection layout has a .row
+.mura-object{
+    &[data-layout="Cards"]{
+        .mura-object-content{
+            &:not(.container){
+                padding-left:15px;
+                padding-right:15px;
+            }
+        }
+    }
+}
